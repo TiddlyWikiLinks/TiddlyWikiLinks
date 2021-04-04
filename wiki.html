@@ -2679,14 +2679,20 @@ tc-richlink-contributor-name {
 	font-weight: bold;
 }
 
+.tc-richlink-topic a .tc-richlink-topic-name {
+    vertical-align: bottom;
+}
+
+
 .tc-richlink-topic a .tc-richlink-topic-count {
 	display: inline-block;
 	font-size: 0.8em;
-	padding: 0 0.25em;
+    padding: 0 0.25em;
 	border-radius: 1em;
 	background: &lt;&lt;color background&gt;&gt;;
 	color: &lt;&lt;colour base-secondary&gt;&gt;;
 	margin: 0 0.25em 0 0.5em;
+	vertical-align: text-bottom;
 }
 
 /*
@@ -3074,7 +3080,9 @@ Parameters:
 --&gt;
 &lt;div class="tc-richlink tc-richlink-topic"&gt;
 &lt;a href={{{ [&lt;topic&gt;slugify[]addprefix[topics/]addprefix&lt;tv-path-to-root&gt;] }}}&gt;
+&lt;span class="tc-richlink-topic-name"&gt;
 &lt;$text text=&lt;&lt;topic&gt;&gt;/&gt;
+&lt;/span&gt;
 &lt;$list filter="[&lt;count&gt;!match[]]" variable="none"&gt;
 &lt;span class="tc-richlink-topic-count"&gt;
 &lt;$text text=&lt;&lt;count&gt;&gt;/&gt;
