@@ -15946,7 +15946,7 @@ Number of unique &lt;a href={{{ [[./pages/links]addprefix&lt;tv-path-to-root&gt;
 <div tags="$:/tags/Page" title="Topics">
 <pre>Number of &lt;a href={{{ [[./pages/topics]addprefix&lt;tv-path-to-root&gt;] }}}&gt;topics&lt;/a&gt;: &lt;$count filter="[tag[$:/tags/Link]tags[]] -[[$:/tags/Link]]"/&gt;
 
-&lt;ul class="tc-list-vertical"&gt;
+&lt;ul class="tc-list-horizontal"&gt;
 &lt;$list filter="[tag[$:/tags/Link]tags[]] -[[$:/tags/Link]] +[sort[]]" variable="topic"&gt;
 &lt;li&gt;{{$:/_Templates/RichLink/Topic}}&lt;/li&gt;
 &lt;/$list&gt;
