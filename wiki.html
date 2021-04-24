@@ -7719,7 +7719,7 @@ The core PUT saver uses etags, which don't work, if server-side file compression
         },
         "$:/language/ControlPanel/Saving/TiddlySpot/Description": {
             "title": "$:/language/ControlPanel/Saving/TiddlySpot/Description",
-            "text": "These settings are only used when saving to http://tiddlyspot.com or a compatible remote server"
+            "text": "These settings are only used when saving to [[TiddlySpot|http://tiddlyspot.com]], [[TiddlyHost|https://tiddlyhost.com]], or a compatible remote server. See [[here|https://github.com/simonbaird/tiddlyhost/wiki/TiddlySpot-Saver-configuration-for-Tiddlyhost-and-Tiddlyspot]] for information on ~TiddlySpot and ~TiddlyHost saving configuration."
         },
         "$:/language/ControlPanel/Saving/TiddlySpot/Filename": {
             "title": "$:/language/ControlPanel/Saving/TiddlySpot/Filename",
@@ -7739,7 +7739,7 @@ The core PUT saver uses etags, which don't work, if server-side file compression
         },
         "$:/language/ControlPanel/Saving/TiddlySpot/ReadOnly": {
             "title": "$:/language/ControlPanel/Saving/TiddlySpot/ReadOnly",
-            "text": "The ~TiddlySpot service is currently only available in read-only form. Please see http://tiddlyspot.com/ for the latest details. The ~TiddlySpot saver can still be used to save to compatible servers."
+            "text": "Note that [[TiddlySpot|http://tiddlyspot.com]] no longer allows the creation of new sites. For new sites you can use [[TiddlyHost|https://tiddlyhost.com]], a new hosting service which replaces ~TiddlySpot."
         },
         "$:/language/ControlPanel/Saving/TiddlySpot/ServerURL": {
             "title": "$:/language/ControlPanel/Saving/TiddlySpot/ServerURL",
@@ -13125,7 +13125,7 @@ The core PUT saver uses etags, which don't work, if server-side file compression
             "title": "$:/core/ui/ControlPanel/Saving/TiddlySpot",
             "tags": "$:/tags/ControlPanel/Saving",
             "caption": "{{$:/language/ControlPanel/Saving/TiddlySpot/Caption}}",
-            "text": "\\define lingo-base() $:/language/ControlPanel/Saving/TiddlySpot/\n\n\\define siteURL(path)\nhttp://$(userName)$.tiddlyspot.com/$path$/\n\\end\n\\define siteLink(path)\n&lt;$reveal type=\"nomatch\" state=\"$:/UploadName\" text=\"\"&gt;\n&lt;$set name=\"userName\" value={{$:/UploadName}}&gt;\n&lt;$reveal type=\"match\" state=\"$:/UploadURL\" text=\"\"&gt;\n&lt;&lt;siteURL $path$&gt;&gt;\n&lt;/$reveal&gt;\n&lt;$reveal type=\"nomatch\" state=\"$:/UploadURL\" text=\"\"&gt;\n&lt;$macrocall $name=resolvePath source={{$:/UploadBackupDir}} root={{$:/UploadURL}}&gt;&gt;\n&lt;/$reveal&gt;\n&lt;/$set&gt;\n&lt;/$reveal&gt;\n\\end\n\n&lt;div class=\"tc-message-box\"&gt;\n\n&lt;&lt;lingo ReadOnly&gt;&gt;\n\n&lt;/div&gt;\n\n&lt;&lt;lingo Description&gt;&gt;\n\n|&lt;&lt;lingo UserName&gt;&gt; |&lt;$edit-text tiddler=\"$:/UploadName\" default=\"\" tag=\"input\"/&gt; |\n|&lt;&lt;lingo Password&gt;&gt; |&lt;$password name=\"upload\"/&gt; |\n|&lt;&lt;lingo Backups&gt;&gt; |&lt;&lt;siteLink backup&gt;&gt; |\n|&lt;&lt;lingo ControlPanel&gt;&gt; |&lt;&lt;siteLink controlpanel&gt;&gt; |\n\n''&lt;&lt;lingo Advanced/Heading&gt;&gt;''\n\n|&lt;&lt;lingo ServerURL&gt;&gt;  |&lt;$edit-text tiddler=\"$:/UploadURL\" default=\"\" tag=\"input\"/&gt; |\n|&lt;&lt;lingo Filename&gt;&gt; |&lt;$edit-text tiddler=\"$:/UploadFilename\" default=\"index.html\" tag=\"input\"/&gt; |\n|&lt;&lt;lingo UploadDir&gt;&gt; |&lt;$edit-text tiddler=\"$:/UploadDir\" default=\".\" tag=\"input\"/&gt; |\n|&lt;&lt;lingo BackupDir&gt;&gt; |&lt;$edit-text tiddler=\"$:/UploadBackupDir\" default=\".\" tag=\"input\"/&gt; |\n\n&lt;&lt;lingo TiddlySpot/Hint&gt;&gt;\n"
+            "text": "\\define lingo-base() $:/language/ControlPanel/Saving/TiddlySpot/\n\n\\define siteURL(path)\nhttp://$(userName)$.tiddlyspot.com/$path$/\n\\end\n\\define siteLink(path)\n&lt;$reveal type=\"nomatch\" state=\"$:/UploadName\" text=\"\"&gt;\n&lt;$set name=\"userName\" value={{$:/UploadName}}&gt;\n&lt;$reveal type=\"match\" state=\"$:/UploadURL\" text=\"\"&gt;\n&lt;&lt;siteURL $path$&gt;&gt;\n&lt;/$reveal&gt;\n&lt;$reveal type=\"nomatch\" state=\"$:/UploadURL\" text=\"\"&gt;\n&lt;$macrocall $name=resolvePath source={{$:/UploadBackupDir}} root={{$:/UploadURL}}&gt;&gt;\n&lt;/$reveal&gt;\n&lt;/$set&gt;\n&lt;/$reveal&gt;\n\\end\n\n&lt;div class=\"tc-message-box\"&gt;\n\n&lt;&lt;lingo ReadOnly&gt;&gt;\n\n&lt;/div&gt;\n\n&lt;&lt;lingo Description&gt;&gt;\n\n|&lt;&lt;lingo UserName&gt;&gt; |&lt;$edit-text tiddler=\"$:/UploadName\" default=\"\" tag=\"input\"/&gt; |\n|&lt;&lt;lingo Password&gt;&gt; |&lt;$password name=\"upload\"/&gt; |\n\n''&lt;&lt;lingo Advanced/Heading&gt;&gt;''\n\n|&lt;&lt;lingo ServerURL&gt;&gt;  |&lt;$edit-text tiddler=\"$:/UploadURL\" default=\"\" tag=\"input\"/&gt; |\n|&lt;&lt;lingo Filename&gt;&gt; |&lt;$edit-text tiddler=\"$:/UploadFilename\" default=\"index.html\" tag=\"input\"/&gt; |\n|&lt;&lt;lingo UploadDir&gt;&gt; |&lt;$edit-text tiddler=\"$:/UploadDir\" default=\".\" tag=\"input\"/&gt; |\n|&lt;&lt;lingo BackupDir&gt;&gt; |&lt;$edit-text tiddler=\"$:/UploadBackupDir\" default=\".\" tag=\"input\"/&gt; |\n\n&lt;&lt;lingo TiddlySpot/Hint&gt;&gt;\n"
         },
         "$:/core/ui/ControlPanel/Saving/Gitea": {
             "title": "$:/core/ui/ControlPanel/Saving/Gitea",
