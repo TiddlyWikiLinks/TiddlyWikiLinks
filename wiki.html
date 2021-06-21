@@ -9772,6 +9772,10 @@ The core PUT saver uses etags, which don't work, if server-side file compression
             "title": "$:/language/Import/Listing/Cancel/Caption",
             "text": "Cancel"
         },
+        "$:/language/Import/Listing/Cancel/Warning": {
+            "title": "$:/language/Import/Listing/Cancel/Warning",
+            "text": "Do you wish to cancel the import?"
+        },
         "$:/language/Import/Listing/Hint": {
             "title": "$:/language/Import/Listing/Hint",
             "text": "These tiddlers are ready to import:"
@@ -11103,6 +11107,12 @@ The core PUT saver uses etags, which don't work, if server-side file compression
         "$:/core/modules/filterrunprefixes/intersection.js": {
             "title": "$:/core/modules/filterrunprefixes/intersection.js",
             "text": "/*\\\ntitle: $:/core/modules/filterrunprefixes/intersection.js\ntype: application/javascript\nmodule-type: filterrunprefix\n\n\\*/\n(function(){\n\n/*jslint node: true, browser: true */\n/*global $tw: false */\n\"use strict\";\n\n/*\nExport our filter prefix function\n*/\nexports.intersection = function(operationSubFunction) {\n\treturn function(results,source,widget) {\n\t\tif(results.length !== 0) {\n\t\t\tvar secondRunResults = operationSubFunction(source,widget);\n\t\t\tvar firstRunResults = results.toArray();\n\t\t\tresults.clear();\n\t\t\t$tw.utils.each(firstRunResults,function(title) {\n\t\t\t\tif(secondRunResults.indexOf(title) !== -1) {\n\t\t\t\t\tresults.push(title);\n\t\t\t\t}\n\t\t\t});\n\t\t}\n\t};\n};\n\n})();\n",
+            "type": "application/javascript",
+            "module-type": "filterrunprefix"
+        },
+        "$:/core/modules/filterrunprefixes/map.js": {
+            "title": "$:/core/modules/filterrunprefixes/map.js",
+            "text": "/*\\\ntitle: $:/core/modules/filterrunprefixes/map.js\ntype: application/javascript\nmodule-type: filterrunprefix\n\\*/\n(function(){\n\n/*jslint node: true, browser: true */\n/*global $tw: false */\n\"use strict\";\n\n/*\nExport our filter prefix function\n*/\nexports.map = function(operationSubFunction,options) {\n\treturn function(results,source,widget) {\n\t\tif(results.length &gt; 0) {\n\t\t\tvar inputTitles = results.toArray();\n\t\t\tresults.clear();\n\t\t\t$tw.utils.each(inputTitles,function(title) {\n\t\t\t\tvar filtered = operationSubFunction(options.wiki.makeTiddlerIterator([title]),{\n\t\t\t\t\tgetVariable: function(name) {\n\t\t\t\t\t\tswitch(name) {\n\t\t\t\t\t\t\tcase \"currentTiddler\":\n\t\t\t\t\t\t\t\treturn \"\" + title;\n\t\t\t\t\t\t\tcase \"..currentTiddler\":\n\t\t\t\t\t\t\t\treturn widget.getVariable(\"currentTiddler\");\n\t\t\t\t\t\t\tdefault:\n\t\t\t\t\t\t\t\treturn widget.getVariable(name);\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t});\n\t\t\t\tresults.push(filtered[0] || \"\");\n\t\t\t});\n\t\t}\n\t}\n};\n\n})();",
             "type": "application/javascript",
             "module-type": "filterrunprefix"
         },
@@ -14935,7 +14945,7 @@ The core PUT saver uses etags, which don't work, if server-side file compression
         "$:/core/ui/ViewTemplate/import": {
             "title": "$:/core/ui/ViewTemplate/import",
             "tags": "$:/tags/ViewTemplate",
-            "text": "\\define lingo-base() $:/language/Import/\n\n\\define buttons()\n&lt;$button message=\"tm-delete-tiddler\" param=&lt;&lt;currentTiddler&gt;&gt;&gt;&lt;&lt;lingo Listing/Cancel/Caption&gt;&gt;&lt;/$button&gt;\n&lt;$button message=\"tm-perform-import\" param=&lt;&lt;currentTiddler&gt;&gt;&gt;&lt;&lt;lingo Listing/Import/Caption&gt;&gt;&lt;/$button&gt;\n&lt;&lt;lingo Listing/Preview&gt;&gt; &lt;$select tiddler=\"$:/state/importpreviewtype\" default=\"$:/core/ui/ImportPreviews/Text\"&gt;\n&lt;$list filter=\"[all[shadows+tiddlers]tag[$:/tags/ImportPreview]!has[draft.of]]\"&gt;\n&lt;option value=&lt;&lt;currentTiddler&gt;&gt;&gt;{{!!caption}}&lt;/option&gt;\n&lt;/$list&gt;\n&lt;/$select&gt;\n\\end\n\n&lt;$list filter=\"[all[current]field:plugin-type[import]]\"&gt;\n\n&lt;div class=\"tc-import\"&gt;\n\n&lt;&lt;lingo Listing/Hint&gt;&gt;\n\n&lt;&lt;buttons&gt;&gt;\n\n{{||$:/core/ui/ImportListing}}\n\n&lt;&lt;buttons&gt;&gt;\n\n&lt;/div&gt;\n\n&lt;/$list&gt;\n"
+            "text": "\\define lingo-base() $:/language/Import/\n\n\\define confirmCancel()\n&lt;$action-confirm $message={{$:/language/Import/Listing/Cancel/Warning}} &gt;\n&lt;$action-deletetiddler $tiddler=&lt;&lt;currentTiddler&gt;&gt;/&gt;\n&lt;$action-sendmessage $message=\"tm-close-tiddler\" title=&lt;&lt;currentTiddler&gt;&gt;/&gt;\n&lt;/$action-confirm&gt;\n\\end\n\n\\define buttons()\n&lt;$button actions=&lt;&lt;confirmCancel&gt;&gt; &gt;&lt;&lt;lingo Listing/Cancel/Caption&gt;&gt;&lt;/$button&gt;\n&lt;$button message=\"tm-perform-import\" param=&lt;&lt;currentTiddler&gt;&gt;&gt;&lt;&lt;lingo Listing/Import/Caption&gt;&gt;&lt;/$button&gt;\n&lt;&lt;lingo Listing/Preview&gt;&gt; &lt;$select tiddler=\"$:/state/importpreviewtype\" default=\"$:/core/ui/ImportPreviews/Text\"&gt;\n&lt;$list filter=\"[all[shadows+tiddlers]tag[$:/tags/ImportPreview]!has[draft.of]]\"&gt;\n&lt;option value=&lt;&lt;currentTiddler&gt;&gt;&gt;{{!!caption}}&lt;/option&gt;\n&lt;/$list&gt;\n&lt;/$select&gt;\n\\end\n\n&lt;$list filter=\"[all[current]field:plugin-type[import]]\"&gt;\n\n&lt;div class=\"tc-import\"&gt;\n\n&lt;&lt;lingo Listing/Hint&gt;&gt;\n\n&lt;&lt;buttons&gt;&gt;\n\n{{||$:/core/ui/ImportListing}}\n\n&lt;&lt;buttons&gt;&gt;\n\n&lt;/div&gt;\n\n&lt;/$list&gt;\n"
         },
         "$:/core/ui/ViewTemplate/plugin": {
             "title": "$:/core/ui/ViewTemplate/plugin",
